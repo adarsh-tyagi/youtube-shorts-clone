@@ -25,10 +25,10 @@ html {
 .app__videos {
   scroll-snap-type: y mandatory;
   position: relative;
-  height: 78vh;
+  height: 65vh;
   background-color: white;
-  width: 70%;
-  max-width: 400px;
+  width: 80%;
+  max-width: 450px;
   border-radius: 20px;
   max-height: 1200px;
   overflow-y: scroll;
