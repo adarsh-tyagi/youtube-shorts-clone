@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import VideoCard from "./VideoCard";
+import logo from "./youtube-shorts.svg";
+import db from "./firebase";
 
 function App() {
+  const [shorts, setShorts] = useState([]);
+  useEffect(() => {
+    db.collection("shorts").onSnapshot((snapshot) =>
+      setShorts(snapshot.docs.map((doc) => doc.data()))
+    );
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="app__top">
+        <img className="app__logo" src={logo} alt="logo" />
+        <h3>Youtube Shorts</h3>
+      </div>
+      <div className="app__videos">
+        {shorts.map(({ song, url, likes, comments }) => (
+          <VideoCard song={song} url={url} likes={likes} comments={comments} />
+        ))}
+      </div>
     </div>
   );
 }
